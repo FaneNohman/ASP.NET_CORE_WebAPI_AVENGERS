@@ -6,6 +6,12 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+<form action="LoginAction">
+        <input name="login" type="text" placeholder="login" />
+        <input name="password" type="password" placeholder="password" />
+        <input type="submit" value="submit" />
+    </form>
+
 <a data-ajax="true"
     data-ajax-loading="#loading"
     data-ajax-mode="replace"
@@ -13,3 +19,4 @@
     href='@Url.Action("index", "Avengers")'
     class="TopIcons">AVENGERS
 </a>
+

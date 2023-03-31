@@ -32,5 +32,38 @@ namespace Avengers.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public void LoginAction()
+        {
+            string login = Request.Query["login"].ToString();
+            string passwrod = Request.Query["password"].ToString();
+
+            var users = from f in _dbContext.Avengers
+                        select f;
+            if (!String.IsNullOrEmpty(login))
+            {
+                users = from f in users where f.HeroName.Equals(login) select f;
+            }
+            if (users.Any())
+            {
+                users = from f in users where f.RealName.Equals(passwrod) select f;
+                if (users.Any())
+                {
+                    Response.StatusCode = 200;
+                    Response.WriteAsync("Success");
+                    return;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    Response.WriteAsync("Wrong password");
+                    return;
+                }
+            }
+
+            Response.StatusCode = 404;
+            Response.WriteAsync("Failure");
+            return;
+        }
     }
 }
